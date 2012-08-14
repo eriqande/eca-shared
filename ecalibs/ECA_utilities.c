@@ -7,6 +7,7 @@
 
 
 
+
 /*  Memory Allocation Functions */
 
 /*  allocate to an array of doubles subscripted from 0 to High.   */
