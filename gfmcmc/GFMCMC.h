@@ -30,7 +30,7 @@
 	#define GLOB 
 #endif
 
-#ifndef COMPILE_FOR_PC_WIN32
+#if (!defined COMPILE_FOR_PC_WIN32) || (!defined HAVE_GL_GLUT_H)
 	#include <GLUT/glut.h>
 #else
 	#include <GL/glut.h>
