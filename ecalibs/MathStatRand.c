@@ -1912,6 +1912,72 @@ printf("\n");
 	free(Arr);
 }  
 
+
+
+
+
+
+/* given K categories, with N_k occurrences in each category (where N_k is a double in the _d version), draw
+ occurences into X, without replacement n times.  In this, the "Squash" version, categories in which N_k is less 
+ than 1.0 or "squashed" down to be 0.0.  This squashing also occurs when a cell with, for example N_k=1.5 gets 
+ a 1.0 extracted from it.  I do this to deal with some stuff having to do with resampling in gsi_sim and priors. */
+void DrawWithoutReplacement_d_Squash(int K, double *N, int *X, int n) 
+{
+	int i, RV;
+	double *Arr,sum=0.0;
+	
+	//#define DEBUG_DRAW_WITHOUT_REP_D_SQUASH 1
+	
+	
+#ifdef DEBUG_DRAW_WITHOUT_REP_D_SQUASH
+	printf("In DrawWithoutReplacement_d:  K=%d : n=%d : N= ",K,n);
+	for(i=0;i<K;i++) printf("%f ",N[i]);
+#endif	
+	
+	/* allocate memory to Arr */
+	Arr = (double *)calloc(K, sizeof(double));
+	
+	/* zero out X, and transfer N to Arr */
+	for(i=0;i<K;i++)  {
+		X[i] = 0;
+		Arr[i] = 0.0;
+		if(N[i]>=1.0) {
+			Arr[i] = N[i];
+			sum+=Arr[i];
+		}
+	}
+	
+	/* now, draw items n times without replacement */
+	for(i=0;i<n;i++)  {
+		RV = IntFromDoublesRV(Arr, sum, K);
+		X[RV]++;
+		Arr[RV] -= 1.0;
+		sum -= 1.0;
+		if(Arr[RV]<1.0) {
+			sum -= Arr[RV];
+			Arr[RV]=0.0;
+		}
+		
+		if(Arr[RV]<0.0 || sum <= 0.0) {
+			fprintf(stderr,"Error! Arr[RV] = %f and sum = %f in DrawWithoutReplacement_d_Squash. Exiting\n",Arr[RV],sum);
+			exit(1);
+		}
+		
+	}
+	
+	/* more for debugging */
+#ifdef DEBUG_DRAW_WITHOUT_REP_D_SQUASH
+	printf(": X= ");
+	for(i=0;i<K;i++) printf("%d ",X[i]);
+	printf("\n");
+#endif
+	
+	free(Arr);
+	
+}  
+
+
+
 /*  
 	This simulates a compound multinomial-dirichlet random vector with dirichlet
 	parameters given in the array alpha.  Note that some of these values can 
