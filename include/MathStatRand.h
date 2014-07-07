@@ -73,6 +73,7 @@ extern void Dgenmul(long n,double *p,long ncat,long *ix);
 extern void MultinomialRV(int n,double *p,int ncat,int *ix);
 extern void D_MultinomialRV(int n,double *p,int ncat,int *ix);
 extern void DrawWithoutReplacement_d(int K, double *N, int *X, int n);
+extern void DrawWithoutReplacement_d_Squash(int K, double *N, int *X, int n);
 extern void CompoundDirMult_ViaUrnRV(double *alpha, int n, int ncat, int *ix);
 extern void CompoundDirMultRV(double *alpha, int n, int ncat, int *ix);
 extern void CoalescentUrnRV(int *N, int n, int K, int *ix);
