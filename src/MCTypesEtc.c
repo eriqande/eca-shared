@@ -456,7 +456,7 @@ void IncrementDval(dval *D)
 /*  Increments a histogram based on the value inV */
 void IncrementHist(hist_struct *Hist, double inV) 
 {
-	if(Hist != NULL)  {  /*  only do this if the histogram has been defined, etc. */
+	if(Hist != NULL && !isnan(inV))  {  /*  only do this if the histogram has been defined and the value is non NaN etc. */
 		/*  right off the bat, we increment dTot; */
 		Hist->dTot += 1.0;
 		
