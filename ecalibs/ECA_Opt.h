@@ -47,9 +47,14 @@
 #define ARGS_LEQ(N) args_leq(N,&__Opt_i,argc,argv,__OptCurrShort,__OptCurrLong,&__OptError)
 #define ALREADY_HAS(Flag, Option)  already_has(Flag, #Option, __OptCurrShort, __OptCurrLong, &__OptError)
 #define HAS_BUT_SHOULD_NOT(Flag, Option)  has_but_should_not(Flag, #Option, __OptCurrShort, __OptCurrLong, &__OptError)
+
+/*  For some reason, this fails on linux---doesn't know a good int when it sees it, so I will just remove it. 
 #define GET_INT atoi(argv[++__Opt_i]); if(!string_is_good_int(argv[__Opt_i])) { char tempstr[2000]; \
 			option_name(tempstr,__OptCurrShort, __OptCurrLong); \
 			fprintf(stderr,"Error Processing Option %s!    Argument \"%s\" to option %s is not a valid integer\n",tempstr, argv[__Opt_i],tempstr); OPT_ERROR; }
+*/
+
+#define GET_INT atoi(argv[++__Opt_i]);			
 #define GET_DUB atof(argv[++__Opt_i]);
 #define GET_STR(X) sprintf(X,"%s",argv[++__Opt_i]);
 #define OPT_ERROR __OptError = 1;
