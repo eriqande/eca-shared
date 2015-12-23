@@ -318,7 +318,7 @@ int opt_snl(int *how_many_times,  /* how many times this option has been used so
 		}
 		if(CanClash && (Clashing && *how_many_times>0) ) {
 			option_name(tempStr, (char *)sh, (char *)lon);
-			fprintf(stderr,"Error Processing Option %s!    Conflicting options when %s %s\n",tempStr, ClashString);
+			fprintf(stderr,"Error Processing Option %s!    Conflicting options when %s\n",tempStr, ClashString);
 			*Error = 1;
 		}
 		
