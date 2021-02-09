@@ -386,7 +386,7 @@ int opt_snl(int *how_many_times,  /* how many times this option has been used so
 		}
 		if(CanClash && (Clashing && *how_many_times>0) ) {
 			option_name(tempStr, (char *)sh, (char *)lon);
-			fprintf(stderr,"Error Processing Option %s!    Conflicting options when %s %s\n",tempStr, ClashString);
+			fprintf(stderr,"Error Processing Option %s!    Conflicting options when %s\n",tempStr, ClashString);
 			*Error = 1;
 		}
 		
@@ -840,7 +840,7 @@ void HandleNewSimpleTok(char c, char *Spew, char *CloseTags, int CIL, const char
 	if(CommLevel==4) {
 		printf("%s<%s>\n",indents(CIL,Temp),xmltag);
 		printf("%s<box_subtext>",indents(CIL+1,Temp));
-		sprintf(InnerClose,"</box_subtext>",indents(CIL+1,Temp));
+		sprintf(InnerClose,"%s</box_subtext>",indents(CIL+1,Temp));
 		sprintf(CloseTags,"\n%s</%s>\n",indents(CIL,Temp),xmltag);
 		sprintf(Spew,"%c",c);
 	}
